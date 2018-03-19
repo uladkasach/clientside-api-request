@@ -6,6 +6,11 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
+/* log reqeusts */
+var morgan = require('morgan');
+app.use(morgan('dev')); // send morgan message to winston
+
+
 /* define routes */
 app.get('/say_hello', (req, res) =>{
     res.send('Hello!') // respond with "Hello!"

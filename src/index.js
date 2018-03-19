@@ -13,9 +13,25 @@ Api.prototype = {
         meta methods
     */
     normalize_host : function(requested_host){
+        /*
+            normalize protocol - relative paths do not exist in our context so assume that if no protocol was defined this is http
+        */
+        var valid_protocol_not_defined = requested_host.indexOf("http://") !== 0 && requested_host.indexOf("https://") !== 0;
+        if(valid_protocol_not_defined) requested_host = "http://" + requested_host; // if not http or https, default to http
+
+        /*
+            extract formal protocol, hostname, and port and build host string
+        */
         var a = document.createElement('a');
         a.href = requested_host; // defaults to host of page called from
-        var host = a.protocol +"//" + a.hostname+ (a.port ? ':'+a.port: '') + "/"; // protocol, hostname, and port from url provided
+        var protocol = a.protocol;
+        var hostname = a.hostname;
+        var port = (a.port)? ":"+a.port : ""; // default to empty string
+        var host = protocol + "//" + hostname + port + "/"; // protocol, hostname, and port from url provided
+
+        /*
+            return host string
+        */
         return host;
     },
 
@@ -34,6 +50,7 @@ Api.prototype = {
     },
 
     get : function(route, data){
+        console.log(promise_request);
         return promise_request.request({
                 method : "GET",
                 uri : this.convert_route_to_uri(route),
@@ -45,6 +62,7 @@ Api.prototype = {
         helpers
     */
     basic_error_handler : function(error){
+        console.log("error was returned!");
         if(error.type == "NO_RESPONSE"){
             alert("Server response not received. Are you sure you're connected to the internet?");
             throw ({type : "CONNECTION"}); // pass the error down further after alerting user
@@ -56,8 +74,9 @@ Api.prototype = {
         }
     },
     convert_route_to_uri : function(route){
-        if(route[0] == "/") route = route.substring(1)
-        return host + route;
+        if(route[0] == "/") route = route.substring(1);
+        var uri = this.host + route;;
+        return uri;
     },
 }
 

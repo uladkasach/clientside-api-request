@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/uladkasach/clientside-api-request#readme",
   "dependencies": {
-    "clientside-require": "^3.9.4"
+    "clientside-require": "^3.9.5"
   },
   "devDependencies": {
     "jsdom": "^11.6.2",
