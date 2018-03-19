@@ -1,0 +1,39 @@
+{
+  "name": "clientside-api-request",
+  "version": "1.0.0",
+  "description": "simplifies making reqeusts to REST APIs in clientside applications ",
+  "main": "src/index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/uladkasach/clientside-api-request.git"
+  },
+  "keywords": [
+    "clientside",
+    "browser",
+    "request",
+    "api",
+    "rest",
+    "api-request",
+    "ajax"
+  ],
+  "author": "uladkasach",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/uladkasach/clientside-api-request/issues"
+  },
+  "homepage": "https://github.com/uladkasach/clientside-api-request#readme",
+  "dependencies": {
+    "clientside-require": "^3.9.4"
+  },
+  "devDependencies": {
+    "jsdom": "^11.6.2",
+    "mocha": "^5.0.4",
+    "xmlhttprequest": "^1.8.0"
+  }
+}
