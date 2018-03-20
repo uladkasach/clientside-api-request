@@ -3,7 +3,7 @@ var assert = require("assert");
 
 // unhandled promisses add details:
 process.on('unhandledRejection', (reason, p) => {
-  console.log('Unhandled Rejection at: Promise', p, '\nreason:', reason);
+  console.log('Unhandled Rejection at: Promise. reason:', reason);
   // application specific logging, throwing an error, or other logic here
 });
 
@@ -39,16 +39,10 @@ describe('syntax', function(){
         assert.equal(typeof Api, "function", "api should be a function");
     })
     it('should load clientside-request', async function(){
-        try {
-            var clientside_request = await clientside_require.asynchronous_require("cliezzzntside-srequest");
-        } catch (error){
-
-        }
-
-        //assert.equal(typeof clientside_request, "function", "request should be a function");
+        var clientside_request = await clientside_require.asynchronous_require("clientside-request");
+        assert.equal(typeof clientside_request, "function", "request should be a function");
     })
 })
-return;
 describe('host_validation', function(){
     it('should find valid host for public domain', async function(){
         var Api = await clientside_require.asynchronous_require(api_path);
