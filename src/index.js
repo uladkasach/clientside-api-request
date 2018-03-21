@@ -2,9 +2,10 @@ var promise_request = require("clientside-request");
 promise_request.request = function(options){return this.then((request)=>{ return request(options)}) }
 
 
-var Api = function(requested_host){
+var Api = function(requested_host, default_options){
     if(typeof requested_host == "undefined") throw new Error("host is not defined");
     this.host = this.normalize_host(requested_host);
+    this.default_options = (default_options)?default_options:{}; // enable selection of default options - if null then let defaults be empty object
 }
 
 Api.prototype = {
@@ -39,19 +40,34 @@ Api.prototype = {
     */
     post : function(route, data, bool_json){
         if(typeof bool_json == "undefined") bool_json = false; // default to false
-        return promise_request.request({
-                method : "POST",
-                uri : this.convert_route_to_uri(route),
-                json : bool_json,
-                data : data,
-            })
+
+        // define options specific to this request
+        var request_specific_options = {
+            method : "POST",
+            uri : this.convert_route_to_uri(route),
+            json : bool_json,
+            data : data,
+        }
+
+        // merge default and specific options
+        var options = Object.assign({}, this.default_options, request_specific_options);  // overwrite defaults with request specifics
+
+        // submit request
+        return promise_request.request(options)
     },
     get : function(route, data){
-        return promise_request.request({
-                method : "GET",
-                uri : this.convert_route_to_uri(route),
-                data : data,
-            })
+        // define options specific to this request
+        var request_specific_options = {
+            method : "GET",
+            uri : this.convert_route_to_uri(route),
+            data : data,
+        }
+
+        // merge default and specific options
+        var options = Object.assign({}, this.default_options, request_specific_options);  // overwrite defaults with request specifics
+
+        // submit request
+        return promise_request.request(options)
     },
 
     /*
