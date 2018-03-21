@@ -10,6 +10,13 @@ app.use(bodyParser.urlencoded({ extended: false }));
 var morgan = require('morgan');
 app.use(morgan('dev')); // send morgan message to winston
 
+/* allow cross origin */
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://test-env.clientside-api-request.localhost");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
+  next();
+});
 
 /* define routes */
 app.get('/say_hello', (req, res) =>{

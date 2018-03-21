@@ -33,15 +33,16 @@ var api_path = "/index.js"
     test
 */
 describe('syntax', function(){
-    it("should load", async function(){
-        var Api = await clientside_require.asynchronous_require(api_path);
-        assert.equal(typeof Api, "function", "api should be a function");
-    })
     it('should load clientside-request', async function(){
         var clientside_request = await clientside_require.asynchronous_require("clientside-request");
         assert.equal(typeof clientside_request, "function", "request should be a function");
     })
+    it("should load", async function(){
+        var Api = await clientside_require.asynchronous_require(api_path);
+        assert.equal(typeof Api, "function", "api should be a function");
+    })
 })
+
 describe('host_validation', function(){
     it('should find valid host for public domain', async function(){
         var Api = await clientside_require.asynchronous_require(api_path);
@@ -68,12 +69,23 @@ describe('initialization', function(){
             assert.equal(error.message, "host is not defined")
         }
     })
+    it('should record defaults if they are passed', async function(){
+        var Api = await clientside_require.asynchronous_require(api_path);
+        var default_options = {cookies:true};
+        var test_api = new Api("localhost:3000", default_options);
+        assert.equal(test_api.default_options, default_options);
+    })
 })
 describe('requests', function(){
     it('should be able to send get request', async function(){
         var Api = await clientside_require.asynchronous_require(api_path);
-        var test_api = new Api("localhost:3000");
-        var response = await test_api.get("/hello");
-        console.log(response);
+        var test_api = new Api("localhost:3000", {cookies:true});
+        var response = await test_api.get("/say_hello");
+        assert.equal(response, "Hello!");
+    })
+    it('should be able to send post request', async function(){
+        var Api = await clientside_require.asynchronous_require(api_path);
+        var test_api = new Api("localhost:3000", {cookies:true});
+        var response = await test_api.post("/post_data", {test:true});
     })
 })
