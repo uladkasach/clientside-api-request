@@ -1,6 +1,6 @@
 {
   "name": "clientside-api-request",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "simplifies making reqeusts to REST APIs in clientside applications ",
   "main": "src/index.js",
   "directories": {
@@ -31,6 +31,7 @@
   "dependencies": {
     "clientside-require": "^3.9.7"
   },
+  "require_mode": "async",
   "devDependencies": {
     "jsdom": "^11.6.2",
     "mocha": "^5.0.4",
