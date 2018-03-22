@@ -30,6 +30,20 @@ Api.prototype = {
         var host = protocol + "//" + hostname + port + "/"; // protocol, hostname, and port from url provided
 
         /*
+            validate that host is still valid
+        */
+        if(!hostname){
+            var error = new Error("hostname not defined for requested_host given to clientside-request-api (" + requested_host +")")
+            error.reason = "hostname";
+            throw error;
+        }
+        if(!protocol){
+            var error = new Error("protocol not defined for requested_host given to clientside-request-api (" + requested_host +")")
+            error.reason = "protocol";
+            throw error;
+        }
+
+        /*
             return host string
         */
         return host;

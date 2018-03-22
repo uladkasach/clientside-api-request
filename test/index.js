@@ -54,6 +54,15 @@ describe('host_validation', function(){
         var host = Api.prototype.normalize_host("localhost:3000");
         assert.equal(host, "http://localhost:3000/")
     })
+    it('should throw error for invalid hostname',  async function(){
+        var Api = await clientside_require.asynchronous_require(api_path);
+        try {
+            var host = Api.prototype.normalize_host("http://:3000/");
+            throw new Error("should not reach here");
+        } catch (error){
+            assert.equal(error.reason, "hostname");
+        }
+    })
 })
 describe('initialization', function(){
     it('should initialize with valid host', async function(){
