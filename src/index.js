@@ -1,4 +1,4 @@
-var promise_request = require("clientside-request");
+var promise_request = load("clientside-request");
 promise_request.request = function(options){return this.then((request)=>{ return request(options)}) }
 
 

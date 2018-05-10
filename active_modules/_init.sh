@@ -1,4 +1,4 @@
-modules=( "clientside-require" )
+modules=( "clientside-require" "clientside-request" )
 
 BASE="$PWD/.."
 
