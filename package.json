@@ -1,6 +1,6 @@
 {
   "name": "clientside-api-request",
-  "version": "1.2.3",
+  "version": "1.2.4",
   "description": "simplifies making reqeusts to REST APIs in clientside applications ",
   "main": "src/index.js",
   "directories": {

@@ -53,7 +53,8 @@ Api.prototype = {
         functionality
     */
     post : function(route, data, bool_json){
-        if(typeof bool_json == "undefined") bool_json = false; // default to false
+        if(typeof bool_json == "undefined") bool_json = this.default_options.json; // attempt to set default to default options
+        if(typeof bool_json == "undefined") bool_json = false; // if still not set, default to false
 
         // define options specific to this request
         var request_specific_options = {
